@@ -1,5 +1,5 @@
-
 import 'package:flutter/cupertino.dart';
+import 'package:rolodex/screens/contact_groups.dart';
 
 import 'contacts.dart';
 
@@ -30,7 +30,7 @@ class _AdaptiveLayoutState extends State<AdaptiveLayout> {
         if (isLargeScreen) {
           return _buildLargeScreenLayout();
         } else {
-          return const ContactListsPage(listId: 0); // New, temporary
+          return const ContactGroupsPage(); // Reverted
         }
       },
     );
@@ -42,9 +42,15 @@ class _AdaptiveLayoutState extends State<AdaptiveLayout> {
       child: SafeArea(
         child: Row(
           children: [
-            const SizedBox(width: 320, child: Text('Sidebar placeholder')),
+            SizedBox(
+              width: 320,
+              child: ContactGroupsSidebar(
+                selectedListId: selectedListId,
+                onListSelected: _onContactListSelected,
+              ),
+            ),
             Container(width: 1, color: CupertinoColors.separator),
-            const Expanded(child: Text('Details placeholder')),
+            Expanded(child: ContactListDetail(listId: selectedListId)),
           ],
         ),
       ),
